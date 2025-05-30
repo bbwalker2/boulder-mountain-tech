@@ -1,0 +1,24 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+}
+header {
+    background: #fff;
+    padding: 2em 1em;
+}
+.video-section video {
+    width: 80%;
+    margin: 2em 0;
+}
+footer {
+    margin-top: 2em;
+    background: #eee;
+    padding: 1em;
+}
+nav a {
+    margin: 0 1em;
+    text-decoration: none;
+}
