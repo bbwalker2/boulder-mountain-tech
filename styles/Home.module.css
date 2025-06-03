@@ -1,0 +1,32 @@
+
+.container {
+  min-height: 100vh;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: #f9f9f9;
+}
+.main {
+  text-align: center;
+}
+.title {
+  font-size: 3rem;
+  font-weight: bold;
+  color: #333;
+}
+.description {
+  font-size: 1.5rem;
+  color: #666;
+  margin-bottom: 1.5rem;
+}
+.button {
+  background-color: #6c47ff;
+  color: white;
+  border: none;
+  padding: 1rem 2rem;
+  font-size: 1rem;
+  border-radius: 0.5rem;
+  cursor: pointer;
+}
