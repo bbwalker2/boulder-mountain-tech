@@ -1,67 +1,67 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { X } from 'lucide-react';
+import { useState, useEffect } from 'react';
+import Head from 'next/head';
+import Hero from '@/components/Hero';
+import WhoWeAre from '@/components/WhoWeAre';
+import Services from '@/components/Services';
+import Contact from '@/components/Contact';
+import ShowreelModal from '@/components/ShowreelModal';
+import Footer from '@/components/Footer';
+import PageLoader from '@/components/PageLoader';
 
-interface ShowreelModalProps {
-  isOpen: boolean;
-  onClose: () => void;
-}
+export default function Home() {
+  const [isLoading, setIsLoading] = useState(true);
+  const [showModal, setShowModal] = useState(false);
 
-export default function ShowreelModal({ isOpen, onClose }: ShowreelModalProps) {
-  const videoRef = useRef<HTMLIFrameElement>(null);
-
-  // ESC key closes modal
+  // Lock scroll + ESC key close
   useEffect(() => {
-    const handleKey = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') onClose();
-    };
-    document.addEventListener('keydown', handleKey);
-    return () => document.removeEventListener('keydown', handleKey);
-  }, [onClose]);
+    if (showModal) {
+      document.body.style.overflow = 'hidden';
+      const handleEsc = (e: KeyboardEvent) => {
+        if (e.key === 'Escape') setShowModal(false);
+      };
+      document.addEventListener('keydown', handleEsc);
+      return () => {
+        document.body.style.overflow = '';
+        document.removeEventListener('keydown', handleEsc);
+      };
+    }
+  }, [showModal]);
 
-  return (
-    <AnimatePresence>
-      {isOpen && (
-        <motion.div
-          key="showreel-overlay"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm"
-        >
-          <motion.div
-            key="showreel-content"
-            initial={{ scale: 0.9, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
-            exit={{ scale: 0.9, opacity: 0 }}
-            transition={{ duration: 0.3 }}
-            className="relative w-full max-w-4xl mx-4 bg-black rounded-xl overflow-hidden shadow-2xl ring-1 ring-white/10"
-          >
-            <button
-              onClick={onClose}
-              className="absolute top-4 right-4 bg-white/10 backdrop-blur p-2 rounded-full text-white hover:text-yellow-400 transition"
-              aria-label="Close"
-            >
-              <X className="w-6 h-6" />
-            </button>
+  return isLoading ? (
+    <PageLoader onFinish={() => setIsLoading(false)} />
+  ) : (
+    <>
+      <Head>
+        <title>Boulder Mountain Tech</title>
+        <meta
+          name="description"
+          content="From bold ideas to built solutions. We help visionaries automate, scale, and grow with confidence."
+        />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
 
-            <div className="aspect-video w-full">
-              <iframe
-                ref={videoRef}
-                className="w-full h-full rounded-b-xl"
-                src="https://www.youtube.com/embed/YOUR_VIDEO_ID?autoplay=1&rel=0&showinfo=0&modestbranding=1"
-                title="Boulder Mountain Tech Showreel"
-                frameBorder="0"
-                allow="autoplay; encrypted-media"
-                allowFullScreen
-                referrerPolicy="no-referrer-when-downgrade"
-              ></iframe>
-            </div>
-          </motion.div>
-        </motion.div>
-      )}
-    </AnimatePresence>
+      <main className="min-h-screen bg-black text-white font-sans">
+        <Hero onPlayShowreel={() => setShowModal(true)} />
+
+        <section className="bg-gradient-to-r from-yellow-400 via-yellow-300 to-yellow-400 text-black text-center p-6 md:p-8 mb-10 rounded-2xl shadow-2xl border border-yellow-500 max-w-3xl mx-auto">
+          <h2 className="text-2xl md:text-3xl font-extrabold mb-2">Tailwind is Fully Functional 🎉</h2>
+          <p className="text-md md:text-lg font-medium">
+            Utility-first styling and custom themes are rendering perfectly. You're ready to build boldly.
+          </p>
+        </section>
+
+        <WhoWeAre />
+        <Services />
+        <Contact />
+        <ShowreelModal
+          isOpen={showModal}
+          onClose={() => setShowModal(false)}
+        />
+        <Footer />
+      </main>
+    </>
   );
 }
