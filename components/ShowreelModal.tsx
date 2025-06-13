@@ -31,7 +31,6 @@ export default function ShowreelModal({ isOpen, onClose }: ShowreelModalProps) {
           exit={{ opacity: 0 }}
           className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm"
         >
-          {/* Modal Container */}
           <motion.div
             key="showreel-content"
             initial={{ scale: 0.9, opacity: 0 }}
@@ -40,7 +39,6 @@ export default function ShowreelModal({ isOpen, onClose }: ShowreelModalProps) {
             transition={{ duration: 0.3 }}
             className="relative w-full max-w-4xl mx-4 bg-black rounded-xl overflow-hidden shadow-2xl ring-1 ring-white/10"
           >
-            {/* Close Button */}
             <button
               onClick={onClose}
               className="absolute top-4 right-4 bg-white/10 backdrop-blur p-2 rounded-full text-white hover:text-yellow-400 transition"
@@ -49,7 +47,6 @@ export default function ShowreelModal({ isOpen, onClose }: ShowreelModalProps) {
               <X className="w-6 h-6" />
             </button>
 
-            {/* YouTube Embed */}
             <div className="aspect-video w-full">
               <iframe
                 ref={videoRef}
