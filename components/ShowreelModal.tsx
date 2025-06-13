@@ -1,16 +1,17 @@
 'use client';
 
-import { useEffect, RefObject } from 'react';
+import { useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X } from 'lucide-react';
 
 interface ShowreelModalProps {
   isOpen: boolean;
   onClose: () => void;
-  videoRef: RefObject<HTMLIFrameElement>;
 }
 
-export default function ShowreelModal({ isOpen, onClose, videoRef }: ShowreelModalProps) {
+export default function ShowreelModal({ isOpen, onClose }: ShowreelModalProps) {
+  const videoRef = useRef<HTMLIFrameElement>(null);
+
   // ESC key closes modal
   useEffect(() => {
     const handleKey = (e: KeyboardEvent) => {
