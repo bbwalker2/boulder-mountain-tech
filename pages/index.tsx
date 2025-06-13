@@ -13,7 +13,7 @@ import PageLoader from '@/components/PageLoader';
 export default function Home() {
   const [isLoading, setIsLoading] = useState(true);
   const [showModal, setShowModal] = useState(false);
-  const videoRef = useRef<HTMLVideoElement | null>(null);
+  const videoRef = useRef<HTMLIFrameElement | null>(null);
 
   // Lock scroll + ESC key close
   useEffect(() => {
