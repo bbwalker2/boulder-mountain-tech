@@ -2,42 +2,62 @@
 @tailwind components;
 @tailwind utilities;
 
-/* === Global Body Styling === */
-body {
-  @apply bg-gradient-to-b from-black via-gray-900 to-black text-white font-sans antialiased;
+/* === Base Reset & Font Enforcement === */
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    font-family: 'Inter', system-ui, sans-serif;
+  }
+
+  body {
+    @apply bg-gradient-to-b from-black via-gray-900 to-black text-white antialiased;
+  }
+
+  *, *::before, *::after {
+    @apply box-border;
+  }
+
+  /* Headings */
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-bold text-white tracking-tight leading-tight;
+  }
+
+  /* Links */
+  a {
+    @apply text-yellow-400 no-underline hover:underline hover:text-white transition duration-200;
+  }
+
+  /* Paragraphs */
+  p {
+    @apply text-gray-300;
+  }
+
+  /* Buttons */
+  button {
+    @apply bg-yellow-400 text-black font-semibold px-5 py-3 rounded-xl hover:brightness-110 hover:ring-2 hover:ring-yellow-400 focus:outline-none transition duration-300;
+  }
+
+  /* Form Inputs */
+  input, textarea {
+    @apply bg-black text-white border border-gray-700 p-3 rounded-lg placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-yellow-400;
+  }
+
+  /* Labels */
+  label {
+    @apply text-gray-400 font-medium;
+  }
 }
 
-/* === Headings === */
-h1, h2, h3, h4, h5, h6 {
-  @apply font-bold text-white leading-tight tracking-tight;
-}
-
-/* === Links === */
-a {
-  @apply text-yellow-400 underline hover:text-white transition duration-200;
-}
-
-/* === Buttons === */
-button {
-  @apply bg-yellow-400 text-black font-semibold px-5 py-3 rounded-xl hover:brightness-110 transition duration-300;
-}
-
-/* === Sections === */
+/* === Layout Blocks === */
 section {
   @apply py-20 md:py-28 px-6 relative;
 }
 
-/* === Footer === */
-footer {
-  @apply bg-black text-white text-center py-8 text-sm border-t border-gray-700;
-}
-
-/* === Container === */
 .container {
   @apply max-w-7xl mx-auto w-full px-6 md:px-10;
 }
 
-/* === Animations === */
+/* === Animation Classes === */
 .fadeIn {
   animation: fadeIn 0.5s ease-in-out;
 }
@@ -50,4 +70,37 @@ footer {
 /* === Scroll Cue === */
 .scroll-cue {
   @apply text-sm text-gray-400 animate-bounce mt-4;
+}
+
+/* === Debug Utility (for Dev Only) === */
+.debug-outline * {
+  outline: 1px dashed rgba(255, 255, 255, 0.1);
+}
+
+/* === Tailwind Typography Plugin Fixes === */
+.prose {
+  @apply prose-invert max-w-none text-gray-300;
+}
+
+.prose h1,
+.prose h2,
+.prose h3,
+.prose h4 {
+  @apply text-white;
+}
+
+.prose a {
+  @apply text-yellow-400 hover:text-white transition-colors duration-200;
+}
+
+.prose strong {
+  @apply text-white;
+}
+
+.prose code {
+  @apply text-yellow-300;
+}
+
+.prose blockquote {
+  @apply border-l-4 border-yellow-400 pl-4 italic text-gray-400;
 }

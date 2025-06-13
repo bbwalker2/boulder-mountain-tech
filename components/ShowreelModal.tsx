@@ -1,62 +1,71 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { PlayCircle, X } from 'lucide-react';
+import { X } from 'lucide-react';
 
-export default function ShowreelModal() {
-  const [isOpen, setIsOpen] = useState(false);
+export default function ShowreelModal({
+  isOpen,
+  onClose,
+}: {
+  isOpen: boolean;
+  onClose: () => void;
+}) {
+  const videoRef = useRef<HTMLIFrameElement>(null);
+
+  // ESC key closes modal
+  useEffect(() => {
+    const handleKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') onClose();
+    };
+    document.addEventListener('keydown', handleKey);
+    return () => document.removeEventListener('keydown', handleKey);
+  }, [onClose]);
 
   return (
-    <>
-      {/* Trigger Button */}
-      <div className="flex justify-center mt-12">
-        <button
-          onClick={() => setIsOpen(true)}
-          className="flex items-center gap-2 bg-yellow-400 text-black font-bold px-6 py-3 rounded-full hover:brightness-110 transition"
+    <AnimatePresence>
+      {isOpen && (
+        <motion.div
+          key="showreel-overlay"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm"
         >
-          <PlayCircle className="w-5 h-5" />
-          Play Showreel
-        </button>
-      </div>
-
-      {/* Modal Overlay */}
-      <AnimatePresence>
-        {isOpen && (
+          {/* Modal Container */}
           <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 z-50 flex items-center justify-center bg-black/80"
+            key="showreel-content"
+            initial={{ scale: 0.9, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            exit={{ scale: 0.9, opacity: 0 }}
+            transition={{ duration: 0.3 }}
+            className="relative w-full max-w-4xl mx-4 bg-black rounded-xl overflow-hidden shadow-2xl ring-1 ring-white/10"
           >
-            {/* Modal Content */}
-            <motion.div
-              initial={{ scale: 0.9, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              exit={{ scale: 0.9, opacity: 0 }}
-              transition={{ duration: 0.3 }}
-              className="relative w-full max-w-4xl mx-4 bg-black rounded-xl overflow-hidden shadow-lg"
+            {/* Close Button */}
+            <button
+              onClick={onClose}
+              className="absolute top-4 right-4 bg-white/10 backdrop-blur p-2 rounded-full text-white hover:text-yellow-400 transition"
+              aria-label="Close"
             >
-              {/* Close Button */}
-              <button
-                onClick={() => setIsOpen(false)}
-                className="absolute top-4 right-4 text-white hover:text-yellow-400 transition"
-                aria-label="Close"
-              >
-                <X className="w-6 h-6" />
-              </button>
+              <X className="w-6 h-6" />
+            </button>
 
-              {/* Video */}
-              <video
-                className="w-full h-auto"
-                src="/media/showreel.m4v"
-                controls
-                autoPlay
-              />
-            </motion.div>
+            {/* YouTube Embed */}
+            <div className="aspect-video w-full">
+              <iframe
+                ref={videoRef}
+                className="w-full h-full rounded-b-xl"
+                src="https://www.youtube.com/embed/YOUR_VIDEO_ID?autoplay=1&rel=0&showinfo=0&modestbranding=1"
+                title="Boulder Mountain Tech Showreel"
+                frameBorder="0"
+                allow="autoplay; encrypted-media"
+                allowFullScreen
+                referrerPolicy="no-referrer-when-downgrade"
+              ></iframe>
+            </div>
           </motion.div>
-        )}
-      </AnimatePresence>
-    </>
+        </motion.div>
+      )}
+    </AnimatePresence>
   );
 }
