@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect } from 'react';
 import Head from 'next/head';
 import Hero from '@/components/Hero';
 import WhoWeAre from '@/components/WhoWeAre';
@@ -13,7 +13,6 @@ import PageLoader from '@/components/PageLoader';
 export default function Home() {
   const [isLoading, setIsLoading] = useState(true);
   const [showModal, setShowModal] = useState(false);
-  const videoRef = useRef<HTMLIFrameElement | null>(null);
 
   // Lock scroll + ESC key close
   useEffect(() => {
@@ -27,13 +26,6 @@ export default function Home() {
         document.body.style.overflow = '';
         document.removeEventListener('keydown', handleEsc);
       };
-    }
-  }, [showModal]);
-
-  // Pause video on close
-  useEffect(() => {
-    if (!showModal && videoRef.current) {
-      videoRef.current.pause();
     }
   }, [showModal]);
 
@@ -68,7 +60,6 @@ export default function Home() {
         <ShowreelModal
           isOpen={showModal}
           onClose={() => setShowModal(false)}
-          videoRef={videoRef}
         />
         <Footer />
       </main>
