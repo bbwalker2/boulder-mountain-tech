@@ -12,6 +12,14 @@ interface ShowreelModalProps {
 export default function ShowreelModal({ isOpen, onClose }: ShowreelModalProps) {
   const videoRef = useRef<HTMLIFrameElement>(null);
 
+  // Pause video on close
+  useEffect(() => {
+    if (!isOpen && videoRef.current) {
+      const src = videoRef.current.src;
+      videoRef.current.src = src; // resets the iframe
+    }
+  }, [isOpen]);
+
   // ESC key closes modal
   useEffect(() => {
     const handleKey = (e: KeyboardEvent) => {

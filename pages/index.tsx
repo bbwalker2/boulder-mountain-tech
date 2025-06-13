@@ -46,6 +46,7 @@ export default function Home() {
       <main className="min-h-screen bg-black text-white font-sans">
         <Hero onPlayShowreel={() => setShowModal(true)} />
 
+        {/* 🧠 Visual Confirmation Banner — safe to remove in production */}
         <section className="bg-gradient-to-r from-yellow-400 via-yellow-300 to-yellow-400 text-black text-center p-6 md:p-8 mb-10 rounded-2xl shadow-2xl border border-yellow-500 max-w-3xl mx-auto">
           <h2 className="text-2xl md:text-3xl font-extrabold mb-2">Tailwind is Fully Functional 🎉</h2>
           <p className="text-md md:text-lg font-medium">
