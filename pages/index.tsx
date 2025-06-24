@@ -1,4 +1,8 @@
+
 'use client';
+
+
+// redeploy marker: force redeploy to remove lingering videoRef
 
 import { useState, useEffect } from 'react';
 import Head from 'next/head';
