@@ -1,14 +1,10 @@
-
 'use client';
-
-
-// redeploy marker: force redeploy to remove lingering videoRef
 
 import { useState, useEffect } from 'react';
 import Head from 'next/head';
 import Hero from '@/components/Hero';
 import WhoWeAre from '@/components/WhoWeAre';
-import Services from '@/components/Services';
+import WhatWeDo from '@/components/WhatWeDo';
 import Contact from '@/components/Contact';
 import ShowreelModal from '@/components/ShowreelModal';
 import Footer from '@/components/Footer';
@@ -18,7 +14,6 @@ export default function Home() {
   const [isLoading, setIsLoading] = useState(true);
   const [showModal, setShowModal] = useState(false);
 
-  // Lock scroll + ESC key close
   useEffect(() => {
     if (showModal) {
       document.body.style.overflow = 'hidden';
@@ -47,26 +42,28 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main className="min-h-screen bg-black text-white font-sans">
+      {/* HERO */}
+      <section className="bg-black text-white">
         <Hero onPlayShowreel={() => setShowModal(true)} />
+      </section>
 
-        {/* 🧠 Visual Confirmation Banner — safe to remove in production */}
-        <section className="bg-gradient-to-r from-yellow-400 via-yellow-300 to-yellow-400 text-black text-center p-6 md:p-8 mb-10 rounded-2xl shadow-2xl border border-yellow-500 max-w-3xl mx-auto">
-          <h2 className="text-2xl md:text-3xl font-extrabold mb-2">Tailwind is Fully Functional 🎉</h2>
-          <p className="text-md md:text-lg font-medium">
-            Utility-first styling and custom themes are rendering perfectly. You're ready to build boldly.
-          </p>
-        </section>
-
+      {/* WHO WE ARE */}
+      <section className="bg-gradient-to-br from-yellow-500 via-yellow-400 to-yellow-300 text-black py-20 px-6 md:px-16">
         <WhoWeAre />
-        <Services />
+      </section>
+
+      {/* WHAT WE DO */}
+      <section className="bg-black text-white py-20 px-6 md:px-16">
+        <WhatWeDo />
+      </section>
+
+      {/* CONNECT */}
+      <section className="bg-gradient-to-br from-yellow-500 via-yellow-400 to-yellow-300 text-black py-20 px-6 md:px-16">
         <Contact />
-        <ShowreelModal
-          isOpen={showModal}
-          onClose={() => setShowModal(false)}
-        />
-        <Footer />
-      </main>
+      </section>
+
+      <ShowreelModal isOpen={showModal} onClose={() => setShowModal(false)} />
+      <Footer />
     </>
   );
 }

@@ -1,26 +1,30 @@
 /** @type {import('tailwindcss').Config} */
+const defaultTheme = require('tailwindcss/defaultTheme');
+const colors = require('tailwindcss/colors');
+
 module.exports = {
   content: [
     './pages/**/*.{js,ts,jsx,tsx}',
     './components/**/*.{js,ts,jsx,tsx}',
     './app/**/*.{js,ts,jsx,tsx}',
   ],
-  darkMode: 'class', // 🔥 Future-proofing for dark/light themes
+  darkMode: 'class',
   theme: {
     extend: {
       colors: {
+        ...colors, // ✅ Preserve all Tailwind colors
         primary: '#FFD700',
         dark: '#000000',
         light: '#f9f9f9',
-        accent: '#ffef99', // Optional soft highlight
-        muted: '#222',     // Consistent alt background
+        accent: '#ffef99',
+        muted: '#222',
       },
       fontFamily: {
-        sans: ['Inter', 'ui-sans-serif', 'system-ui'],
+        sans: ['Inter', ...defaultTheme.fontFamily.sans],
       },
       borderRadius: {
         '2xl': '1.5rem',
-        '4xl': '2rem', // Tier 10: For big panels/cards
+        '4xl': '2rem',
       },
       zIndex: {
         '-1': '-1',
@@ -76,7 +80,7 @@ module.exports = {
   plugins: [
     require('@tailwindcss/forms'),
     require('@tailwindcss/typography'),
-    require('@tailwindcss/aspect-ratio'),  // ✅ Tier 10 addition for image/video aspect control
-    require('@tailwindcss/container-queries'), // ✅ For smart responsive containers
+    require('@tailwindcss/aspect-ratio'),
+    require('@tailwindcss/container-queries'),
   ],
 };
