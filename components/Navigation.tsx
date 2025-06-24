@@ -36,7 +36,7 @@ export default function Navigation() {
     >
       <div className="max-w-7xl mx-auto px-4 md:px-8 flex items-center justify-between py-4">
         {/* Logo */}
-        <Link href="/" className="flex items-center space-x-2">
+        <Link href="/" aria-label="Boulder Mountain Tech Home" className="flex items-center space-x-2">
           <Image
             src="/assets/BM2nowords.png"
             alt="Boulder Mountain Tech Logo"
@@ -47,31 +47,32 @@ export default function Navigation() {
           />
         </Link>
 
-        {/* Desktop Navigation */}
-        <nav className="hidden md:flex items-center space-x-8">
+        {/* Desktop Nav */}
+        <nav className="hidden md:flex items-center space-x-8" aria-label="Main Navigation">
           {navItems.map((item) => (
             <Link
               key={item.href}
               href={item.href}
               onClick={closeMenu}
-              className="relative text-sm text-gray-300 hover:text-yellow-400 transition-all duration-300 group"
+              className="relative text-sm text-gray-300 hover:text-primary transition-all duration-300 group"
             >
               {item.label}
-              <span className="absolute left-0 -bottom-1 h-0.5 w-0 bg-yellow-400 group-hover:w-full transition-all duration-300"></span>
+              <span className="absolute left-0 -bottom-1 h-0.5 w-0 bg-primary group-hover:w-full transition-all duration-300"></span>
             </Link>
           ))}
         </nav>
 
-        {/* Mobile Menu Toggle */}
+        {/* Mobile Toggle */}
         <button
           onClick={toggleMenu}
-          className="md:hidden text-yellow-400 focus:outline-none transition-transform"
+          className="md:hidden text-primary focus:outline-none transition-transform"
+          aria-label="Toggle Navigation Menu"
         >
           {menuOpen ? <X size={28} /> : <Menu size={28} />}
         </button>
       </div>
 
-      {/* Mobile Dropdown */}
+      {/* Mobile Menu */}
       <AnimatePresence>
         {menuOpen && (
           <motion.div
@@ -79,14 +80,14 @@ export default function Navigation() {
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
-            className="md:hidden bg-black/95 border-t border-yellow-400/10 text-center text-base font-medium py-6 space-y-6"
+            className="md:hidden bg-black/95 border-t border-primary/10 text-center text-base font-medium py-6 space-y-6"
           >
             {navItems.map((item) => (
               <Link
                 key={item.href}
                 href={item.href}
                 onClick={closeMenu}
-                className="block text-white hover:text-yellow-400 transition duration-300"
+                className="block text-white hover:text-primary transition duration-300"
               >
                 {item.label}
               </Link>

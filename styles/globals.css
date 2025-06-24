@@ -7,10 +7,13 @@
   html {
     scroll-behavior: smooth;
     font-family: 'Inter', system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
   }
 
   body {
-    @apply bg-gradient-to-b from-black via-gray-900 to-black text-white antialiased;
+    @apply bg-gradient-to-b from-black via-gray-900 to-black text-white antialiased overflow-x-hidden;
   }
 
   *, *::before, *::after {
@@ -27,6 +30,10 @@
     @apply text-yellow-400 no-underline hover:underline hover:text-white transition duration-200;
   }
 
+  a:focus-visible {
+    @apply ring-2 ring-yellow-400 outline-none;
+  }
+
   /* Paragraphs */
   p {
     @apply text-gray-300;
@@ -35,6 +42,10 @@
   /* Buttons */
   button {
     @apply bg-yellow-400 text-black font-semibold px-5 py-3 rounded-xl hover:brightness-110 hover:ring-2 hover:ring-yellow-400 focus:outline-none transition duration-300;
+  }
+
+  button:focus-visible {
+    @apply ring-2 ring-yellow-400 outline-none;
   }
 
   /* Form Inputs */
@@ -54,7 +65,7 @@ section {
 }
 
 .container {
-  @apply max-w-7xl mx-auto w-full px-6 md:px-10;
+  @apply max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8 w-full;
 }
 
 /* === Animation Classes === */
