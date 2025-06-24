@@ -7,7 +7,8 @@ import { usePathname } from 'next/navigation';
 
 const getPageTitle = (pathname: string) => {
   const lastSegment = pathname.split('/').pop();
-  return lastSegment?.charAt(0).toUpperCase() + lastSegment?.slice(1) || '';
+  if (!lastSegment) return '';
+  return lastSegment.charAt(0).toUpperCase() + lastSegment.slice(1);
 };
 
 export default function ServicesLayout({ children }: { children: ReactNode }) {
